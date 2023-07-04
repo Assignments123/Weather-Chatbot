@@ -11,7 +11,7 @@ class WeatherBot:
         self.wit = WitResponse()
 
     def generate_response(self, userinput):
-        intent= self.wit.extractuserinfo(userinput)
+        # intent= self.wit.extractuserinfo(userinput)
         try:
 
             response = self.wit.extractuserinfo(userinput)
@@ -92,7 +92,14 @@ class WeatherBot:
                             please try again after some time"
                     }
                     return data
-                
+            else:
+                data = {
+                        "status":"error",
+                        "message":f"Sorry I did not understand what you said..\
+                        I can give you weather report of any city\
+                        for that provide me name of city.",
+                    }
+                return data
         
         except requests.exceptions.ConnectionError:
             # for handling exception occured due to internet failure
@@ -102,20 +109,12 @@ class WeatherBot:
                         please check your internet connection and try again."
             }
             return data
-        except Exception:
-            data = {
-                        "status":"error",
-                        "message":f"Sorry I did not understand what you said..\
-                        I can give you weather report of any city\
-                        for that provide me name of city.",
-                        
-                    }
-            return data
-        return data
+
 
 @chatbot.route('/')
 def index():
     return render_template('index.html')
+
 
 
 @chatbot.route('/BotResponse',methods=['GET','POST'])
@@ -133,6 +132,7 @@ def BotResponse():
         response = weatherobj.generate_response(usertext)
 
         return response
+    
     except Exception:
         data = {
             "status":"error",
