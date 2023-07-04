@@ -63,3 +63,21 @@
 .loader-gif{
     display:none;
 }
+
+.loader{
+    color: white;
+    font-family: monospace;
+    font-size: 14px;
+    text-align: left;
+    line-height: 30px;
+    max-width: 355px;
+}
+
+.loader span {
+    background-color: skyblue;
+    padding: 10px;
+    border-radius: 5px;
+    color: black;
+    display: block;
+    word-break: break-all; 
+}
