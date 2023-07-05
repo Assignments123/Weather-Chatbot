@@ -15,7 +15,7 @@ class WeatherBot:
         try:
 
             response = self.wit.extractuserinfo(userinput)
-
+            print(response)
             intent = response['intents'][0]['name']
 
             if intent == "greet":
@@ -58,6 +58,7 @@ class WeatherBot:
             elif intent == "weather_question":
                 
                 cityname = response['entities']['city:city'][0]['body']
+                print(cityname)
                 # resp = weatherapi.weatherreport(cityname)
                 weatherresp = weatherapi.WeatherResponse()
 
@@ -78,12 +79,16 @@ class WeatherBot:
                             how can i further assist you?",
                             
                         }
+                    return data
                 
                 elif resp.get('cod')==404:
+
                     data = {
                         "status":"error",
                         "message":"Please provide correct city name"
                     }
+                    print (data)
+                    return data
 
                 else:
                     data = {
@@ -91,6 +96,7 @@ class WeatherBot:
                         "message":"Sorry!! Currently I am unable to process your request\
                             please try again after some time"
                     }
+                    print (data)
                     return data
             else:
                 data = {
@@ -99,7 +105,7 @@ class WeatherBot:
                         I can give you weather report of any city\
                         for that provide me name of city.",
                     }
-                return data
+                return data        
         
         except requests.exceptions.ConnectionError:
             # for handling exception occured due to internet failure
