@@ -75,8 +75,8 @@ class WeatherBot:
                             "status":"success",
                             "message":f"temperature of {cityname} is  :\
                             {temp} ,windspeed is {windspeed} ,\
-                            cloud is {cloud} and humidity is : {humidity}\
-                            how can i further assist you?",
+                            cloud is {cloud} and humidity is : {humidity}.\
+                            How can I further assist you?",
                             
                         }
                     return data
@@ -115,7 +115,14 @@ class WeatherBot:
                         please check your internet connection and try again."
             }
             return data
-
+        except Exception:
+            data = {
+                        'status':"error",
+                        'message':f"Sorry I did not understand what you said..\
+                        I can give you weather report of any city\
+                        for that provide me name of city.",
+            }
+            return data
 
 @chatbot.route('/')
 def index():
